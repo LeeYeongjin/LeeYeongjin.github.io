@@ -1,0 +1,415 @@
+/* Generic Style */
+
+:root{
+    --black: #171321;
+    --dkblue: #0d314b;
+    --plum: #4b0d49;
+    --hotmag: #ff17e4;
+    --magenta: #e310cb;
+    --aqua: #86fbfb;
+    --white: #f7f8fa;
+    /* rem: html태그의 font-size의 배수 */
+    /* em: 해당 스타일 요소의 font-size의 배수 */
+    --font-size: 1.3rem;
+    --mono: "Oxygen mono", monospace;
+    --sans: Oxygen, sans-serif;
+}
+
+html{
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    /* inherit from html */
+    box-sizing: inherit;
+}
+
+/* By default, there exists padding and margin */
+body {
+    /* get rid of margin and padding */
+    padding: 0;
+    margin: 0;
+    font-family: var(--sans);
+    background-color: var(--black);
+    color: var(--white);
+    font-size: var(--font-size);
+}
+/* margins collaps when collide together */
+/* 1 + 1 rem margin = 1 rem margin */
+/* 2+1 rem margin =  2 rem margin (2 wins)*/
+
+/* paddings don't collide: 1+1 rem padding = 2 rem padding */
+h1,h2,h3 {
+    margin: 0;
+}
+
+a {
+    color: var(--magenta);
+}
+a:hover {
+    color: var(--hotmag);
+    text-decoration: none;
+}
+
+img {
+    /* becomes larger or smaller depending on where it is in space */
+    width: 100%;
+}
+
+/* ********************************************************************** */
+
+/* Intro Style */
+
+#intro {
+    padding: 4rem 1rem 10rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* p tags in the intro ID */
+#intro p {
+    font-size: 1rem;
+    /* 1.5 times whatever my font size will be (getting rid of unit); it uses proportion */
+    /* line-height: distance b/w lines */
+    line-height: 1.5; 
+}
+
+#intro.name {
+    font-family: var(--mono);
+}
+
+/* name 클래스를 사용한 태그 안의 span 태그 */
+/* spam by default is inline, so to get out of the line, use block */
+.name span {
+    font-family: var(--sans);
+    font-size: 4rem;
+    color: var(--aqua);
+    display: block;
+}
+
+#intro h2 {
+    font-size: 4rem;
+    font-weight: normal;
+}
+
+/* About */
+#about {
+    padding: 4rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#about h2 {
+    font-size: 2.5rem;
+    margin-bottom: calc(2.5rem * 1.5);
+}
+
+#about h3 {
+    color: var(--aqua);
+}
+
+#about h4 {
+    font-size: 1rem;
+    font-family: var(--mono);
+    margin: 0;
+}
+
+#about ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    gap: 1rem;
+    font-size: 1rem;
+}
+
+#about img {
+    margin: 2rem 0 4rem 0;
+    border-left: 1px solid var(--aqua);
+    border-top: 1px solid var(--aqua);
+    border-radius: 25px;
+    padding: 1rem;
+}
+
+/* *************************************************** */
+/* Project Section */
+.section-dkblue {
+    background-color: var(--dkblue);
+}
+
+#projects {
+    padding: 4rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#projects h2 {
+    font-size: 2.5rem;
+    margin-bottom: calc(2.5rem * 1.5);
+}
+
+#projects h3 {
+    color: var(--aqua);
+}
+
+#projects h4 {
+    font-size: 1rem;
+    font-family: var(--mono);
+    margin: 0;
+}
+
+.black-box {
+    background-color: var(--black);
+    padding: 1rem;
+    border-radius: 10px;
+    color: var(--white);
+    font-size: 1rem;
+    /* 1.5 is a ratio */
+    line-height: 1.5;
+}
+
+#projects ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    gap: 1rem;
+    font-size: 1rem;
+}
+
+#projects img {
+    margin: 2rem 0 4rem 0;
+    border-left: 1px solid var(--aqua);
+    border-top: 1px solid var(--aqua);
+    border-radius: 25px;
+    padding: 1rem;
+}
+
+/* Grid can overlap two cells on top of each other; flexbox cannot */
+@media (min-width: 550px) {
+    article{
+        display: grid;
+        /* ten columns, 1 fraction of screen each */
+        grid-template-columns: repeat(10, 1fr);
+        gap: 1rem;
+    }
+    .text {
+        /* by default image doesn't have an order property assign to it */
+        /* so if text is order 2, image comes first */
+        order: 2;
+        text-align: right;
+        /* space: 5 to 11 columns which is overlapping by one column*/
+        grid-column: 5/11;
+        grid-row: 1/2;
+    }
+    #projects ul {
+        justify-content: flex-end;
+    }
+    #projects img {
+        /* space: column from 1 to 6 columns */
+        grid-column: 1/6;
+        /* 1 to 2 */
+        grid-row: 1/2;
+    }
+
+    #reverse .text {
+        text-align: left;
+        grid-column: 1/7;
+        grid-row: 1/2;
+    }
+
+    #reverse ul {
+        justify-content: flex-start;
+    }
+
+    #reverse img {
+        grid-column: 6/11;
+        grid-row: 1/2;
+    }
+
+    #about ul {
+        justify-content: flex-end;
+    }
+
+    #about img {
+        /* space: column from 1 to 6 columns */
+        grid-column: 1/6;
+        /* 1 to 2 */
+        grid-row: 1/2;
+    }
+
+}
+
+/* *************************************************** */
+
+/* Contact me Section */
+.section-plum {
+    background-color: var(--plum);
+}
+
+.gradient {
+    background: linear-gradient(90deg, rgba(255,23,228,1) 0%, rgba(134,251,251,1) 100%, rgba(0,212,255,1) 100%);
+    height: 2px;
+}
+
+#contact {
+    width: 400px;
+    text-align: center;
+    /* 0 margin top and bottom; even margin on left and right (auto) */
+    margin: 0 auto;
+    padding: 3rem 0;
+    /* background-color: var(--plum); */
+}
+
+#contact p:last-child {
+    margin-top: 3rem;
+}
+
+/* **************************************************** */
+
+/* nav bar */
+nav {
+    font-family: var(--mono);
+    /* Shrink to 80% of the original font size */
+    font-size: 80%;
+    padding: 1rem;
+}
+
+nav h1 a {
+    font-family: var(--sans);
+}
+
+nav ul {
+    /* ul elem or ol elem has either padding or margin*/
+    padding: 0;
+    margin: 0;
+
+    /* get rid of bullet point */
+    list-style-type: none;
+
+    /* use flexbox */
+    display: flex;
+    /* put elems into a row format (when overflow, wraps) */
+    flex-flow: row wrap;
+    /* center everything within the row (or column)*/
+    justify-content: center;
+    /* center elems vertically (horizontally if flex-flow: column */
+    align-items: center;
+    /* space b/w elements */
+    gap: 2rem;
+}
+
+/* Jin Lee */
+/* flex-basis: flex in flexbox */
+/* 플렉스 아이템의 초기 크기를 지정한다 */
+/* box-sizing이 따로 설정되지 않은 경우, 콘텐츠 박스의 크기를 결정하게 된다 (기본값은 auto) */
+nav li:first-child {
+    /* flexbox (parent) 사이즈의 100%를 이용하기에 wrap이 되어 위로 올라감 */
+    flex-basis: 100%;
+    text-align: center;
+}
+
+/* Attribute Selector */
+/* Looks for one of the attributes inside of the HTML Tag */
+/* Looking for attribute of a class that has value of fa- */
+nav [class*="fa-"]{
+    /* font size 150% larger than original size */
+    font-size: 150%;
+    color: var(--aqua);
+}
+
+nav h1 [class*="fa-"]{
+    /* font size 150% larger than original size */
+    font-size: 100%;
+    color: var(--aqua);
+}
+
+nav a {
+    color: var(--white);
+    /* gets rid of underline (characteristics of "a" tag) */
+    text-decoration: none;
+
+    /* by default "a" is inline */
+    /* want the whole box to be the option for selecting the element not only the text */
+    /* want all the area to be clickable */
+    display: block;
+}
+
+nav a:hover,
+nav [class*="fa-"]:hover {
+    color: var(--magenta);
+}
+
+.button {
+    background-color: var(--magenta);
+    padding: 0.5rem;
+    border-radius: 5px;
+    font-family: var(--mono);
+    text-decoration: none;
+    color: var(--white);
+}
+
+.button:hover {
+    color: var(--white);
+    background-color: var(--hotmag);
+}
+
+/* for responsive design */
+/* only effective when width is over 850px */
+@media (min-width: 850px) {
+    nav {
+        max-width: 1200px;
+        /* set things in the middle */
+        margin: 0 auto;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    nav li:first-child {
+        flex-basis: auto;
+        text-align: left;
+        /* putting all the spaces in b/w first-child and the rest of the nav bar */
+        margin-right: auto;
+        
+    }
+}
+
+/* Footer */
+footer {
+    /* padding top and bottom; nothing on the left and right*/
+    padding: 4rem 0;
+    text-align: center;
+}
+
+footer ul {
+    width: 400px;
+    font-family: var(--mono);
+    padding: 0;
+    margin: 2rem auto;
+    list-style-type: none;
+}
+
+footer .icons {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    font-size: 2rem;
+}
+
+footer a {
+    color: var(--aqua);
+}
+
+footer .icons:hover {
+    color: var(--magenta);
+}
+
+
